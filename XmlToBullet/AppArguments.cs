@@ -14,15 +14,12 @@ namespace XmlToBullet
             var nonSwitches = args.Where(a => !a.StartsWith("-")).ToArray();
             var switches = args.Where(a => a.StartsWith("-")).ToArray();
 
-            var showHelp = nonSwitches.Count() != 2 || args.Contains("-help");
+            var showHelp = (nonSwitches.Length != 1 && nonSwitches.Length != 2) || args.Contains("-help");
 
             if (showHelp)
             {
                 return new AppArguments {ShowHelp = true};
             }
-
-            string filePath = nonSwitches[0];
-            string fileOutPath = nonSwitches[1];
 
             var noAttributesOption = switches.FirstOrDefault(a => a.StartsWith("-noAttributes"));
             var attributeOption = switches.FirstOrDefault(a => a.StartsWith("-a="));
@@ -34,8 +31,8 @@ namespace XmlToBullet
             return new AppArguments
             {
                 ShowHelp = false,
-                InPath = filePath,
-                OutPath = fileOutPath,
+                InPath = nonSwitches.First(),
+                OutPath = nonSwitches.Skip(1).FirstOrDefault(),
                 ShowAttributes = noAttributesOption == null,
                 AttibuteBullet = attibuteBullet
             };

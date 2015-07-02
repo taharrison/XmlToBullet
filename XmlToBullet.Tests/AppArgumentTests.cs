@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace XmlToBullet.Tests
 {
@@ -11,14 +12,19 @@ namespace XmlToBullet.Tests
         [TestCase("In.xml out.txt thirdarg")]
         public void Should_show_help(string commandLine)
         {
-            AppArguments args = AppArguments.From(commandLine.Split(' '));
+            AppArguments args = AppArguments.From(Split(commandLine));
             Assert.IsTrue(args.ShowHelp);
+        }
+
+        private static string[] Split(string commandLine)
+        {
+            return commandLine.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         [TestCase("In.xml out.txt")]
         public void Two_arguments_defaults(string commandLine)
         {
-            AppArguments args = AppArguments.From(commandLine.Split(' '));
+            AppArguments args = AppArguments.From(Split(commandLine));
             Assert.IsFalse(args.ShowHelp);
             Assert.AreEqual("In.xml", args.InPath);
             Assert.AreEqual("out.txt", args.OutPath);
@@ -32,7 +38,7 @@ namespace XmlToBullet.Tests
         [TestCase("In.xml -a=# out.txt")]
         public void Paths(string commandLine)
         {
-            AppArguments args = AppArguments.From(commandLine.Split(' '));
+            AppArguments args = AppArguments.From(Split(commandLine));
             Assert.AreEqual("In.xml", args.InPath);
             Assert.AreEqual("out.txt", args.OutPath);
         }
@@ -42,7 +48,7 @@ namespace XmlToBullet.Tests
         [TestCase("In.xml -noAttributes out.txt")]
         public void Disable_attributes(string commandLine)
         {
-            AppArguments args = AppArguments.From(commandLine.Split(' '));
+            AppArguments args = AppArguments.From(Split(commandLine));
             Assert.IsFalse(args.ShowAttributes);
             Assert.IsNull(args.AttibuteBullet);
         }
@@ -50,11 +56,25 @@ namespace XmlToBullet.Tests
         [TestCase("In.xml out.txt -a=#")]
         [TestCase("-a=# In.xml out.txt")]
         [TestCase("In.xml -a=# out.txt")]
+        [TestCase("In.xml -a=#")]
+        [TestCase("-a=# In.xml")]
         public void Specify_bullet(string commandLine)
         {
-            AppArguments args = AppArguments.From(commandLine.Split(' '));
+            AppArguments args = AppArguments.From(Split(commandLine));
             Assert.IsTrue(args.ShowAttributes);
             Assert.AreEqual("#", args.AttibuteBullet);
+        }
+
+        [TestCase("Input.xml")]
+        [TestCase("Input.xml -a=#")]
+        [TestCase("-a=# Input.xml")]
+        [TestCase("Input.xml -noAttribute")]
+        public void Only_input_specified(string commandLine)
+        {
+            AppArguments args = AppArguments.From(Split(commandLine));
+            Assert.IsFalse(args.ShowHelp);
+            Assert.AreEqual("Input.xml", args.InPath);
+            Assert.IsNull(args.OutPath);
         }
     }
 }

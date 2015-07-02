@@ -8,7 +8,7 @@ namespace XmlToBullet
         public static void Main(string[] args)
         {
             const string helptext = @"Usage:
-	XmlToBullet.exe <inputpath> <outputpath>
+	XmlToBullet.exe <inputpath> [<outputpath>]
 
 Options:
 	-a=<attribute bullet point symbol>      specify the bullet point used for attributes (default '+')
@@ -27,7 +27,14 @@ Options:
 
             var asBullets = new XmlConverter(appArgs.AttibuteBullet).Convert(text);
 
-            File.WriteAllText(appArgs.OutPath, asBullets);
+            if (appArgs.OutPath == null)
+            {
+                Console.WriteLine(asBullets);
+            }
+            else
+            {
+                File.WriteAllText(appArgs.OutPath, asBullets);
+            }
         }
     }
 }
