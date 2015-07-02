@@ -12,10 +12,10 @@ namespace XmlToBullet.Tests
             Assert.IsTrue(args.ShowHelp);
         }
 
-        [Test]
-        public void Two_arguments_defaults()
+        [TestCase("In.xml out.txt")]
+        public void Two_arguments_defaults(string commandLine)
         {
-            AppArguments args = AppArguments.From(new[] {"In.xml", "out.txt"});
+            AppArguments args = AppArguments.From(commandLine.Split(' '));
             Assert.IsFalse(args.ShowHelp);
             Assert.AreEqual("In.xml", args.InPath);
             Assert.AreEqual("out.txt", args.OutPath);
@@ -23,18 +23,18 @@ namespace XmlToBullet.Tests
             Assert.AreEqual("+", args.AttibuteBullet);
         }
 
-        [Test]
-        public void Disable_attributes()
+        [TestCase("In.xml out.txt -noAttributes")]
+        public void Disable_attributes(string commandLine)
         {
-            AppArguments args = AppArguments.From(new[] {"In.xml", "out.txt", "-noAttributes"});
+            AppArguments args = AppArguments.From(commandLine.Split(' '));
             Assert.IsFalse(args.ShowAttributes);
             Assert.IsNull(args.AttibuteBullet);
         }
 
-        [Test]
-        public void Specify_bullet()
+        [TestCase("In.xml out.txt -a=#")]
+        public void Specify_bullet(string commandLine)
         {
-            AppArguments args = AppArguments.From(new[] {"In.xml", "out.txt", "-a=#"});
+            AppArguments args = AppArguments.From(commandLine.Split(' '));
             Assert.IsTrue(args.ShowAttributes);
             Assert.AreEqual("#", args.AttibuteBullet);
         }
