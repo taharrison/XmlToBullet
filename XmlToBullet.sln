@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlToBullet", "XmlToBullet\XmlToBullet.csproj", "{EE95C8EF-7DD4-4505-8F19-A9260AFBFC97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlToBullet.Tests", "XmlToBullet.Tests\XmlToBullet.Tests.csproj", "{3F2FCAD5-B574-4040-A8DC-A29C7B5ACE93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE95C8EF-7DD4-4505-8F19-A9260AFBFC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE95C8EF-7DD4-4505-8F19-A9260AFBFC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE95C8EF-7DD4-4505-8F19-A9260AFBFC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE95C8EF-7DD4-4505-8F19-A9260AFBFC97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F2FCAD5-B574-4040-A8DC-A29C7B5ACE93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F2FCAD5-B574-4040-A8DC-A29C7B5ACE93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F2FCAD5-B574-4040-A8DC-A29C7B5ACE93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F2FCAD5-B574-4040-A8DC-A29C7B5ACE93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
