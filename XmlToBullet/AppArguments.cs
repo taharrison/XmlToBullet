@@ -24,7 +24,7 @@ namespace XmlToBullet
             var noAttributesOption = switches.FirstOrDefault(a => a.StartsWith("-noAttributes"));
             var attributeOption = switches.FirstOrDefault(a => a.StartsWith("-a="));
 
-            var attibuteBullet = noAttributesOption != null
+            var attributeBullet = noAttributesOption != null
                 ? null
                 : (String.IsNullOrEmpty(attributeOption) ? "+" : attributeOption.Substring(3));
 
@@ -34,7 +34,7 @@ namespace XmlToBullet
                 InPath = nonSwitches.First(),
                 OutPath = nonSwitches.Skip(1).FirstOrDefault(),
                 ShowAttributes = noAttributesOption == null,
-                AttibuteBullet = attibuteBullet
+                AttributeBullet = attributeBullet
             };
         }
 
@@ -42,6 +42,6 @@ namespace XmlToBullet
         public string InPath { get; private set; }
         public string OutPath { get; private set; }
         public bool ShowAttributes { get; private set; }
-        public string AttibuteBullet { get; private set; }
+        public string AttributeBullet { get; private set; }
     }
 }

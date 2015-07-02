@@ -29,7 +29,7 @@ namespace XmlToBullet.Tests
             Assert.AreEqual("In.xml", args.InPath);
             Assert.AreEqual("out.txt", args.OutPath);
             Assert.IsTrue(args.ShowAttributes);
-            Assert.AreEqual("+", args.AttibuteBullet);
+            Assert.AreEqual("+", args.AttributeBullet);
         }
 
         [TestCase("In.xml out.txt")]
@@ -50,7 +50,7 @@ namespace XmlToBullet.Tests
         {
             AppArguments args = AppArguments.From(Split(commandLine));
             Assert.IsFalse(args.ShowAttributes);
-            Assert.IsNull(args.AttibuteBullet);
+            Assert.IsNull(args.AttributeBullet);
         }
 
         [TestCase("In.xml out.txt -a=#")]
@@ -62,7 +62,7 @@ namespace XmlToBullet.Tests
         {
             AppArguments args = AppArguments.From(Split(commandLine));
             Assert.IsTrue(args.ShowAttributes);
-            Assert.AreEqual("#", args.AttibuteBullet);
+            Assert.AreEqual("#", args.AttributeBullet);
         }
 
         [TestCase("Input.xml")]

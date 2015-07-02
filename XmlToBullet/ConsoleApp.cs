@@ -25,7 +25,7 @@ Options:
 
             var text = File.ReadAllText(appArgs.InPath);
 
-            var asBullets = new XmlConverter(appArgs.AttibuteBullet).Convert(text);
+            var asBullets = new XmlConverter(appArgs.AttributeBullet).Convert(text);
 
             if (appArgs.OutPath == null)
             {
