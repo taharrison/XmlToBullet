@@ -5,10 +5,13 @@ namespace XmlToBullet.Tests
     [TestFixture]
     public sealed class AppArgumentTests
     {
-        [Test]
-        public void Empty_should_show_help()
+        [TestCase("")]
+        [TestCase("-a=# -noAttribute")]
+        [TestCase("In.xml out.txt -help")]
+        [TestCase("In.xml out.txt thirdarg")]
+        public void Should_show_help(string commandLine)
         {
-            AppArguments args = AppArguments.From(new string[0]);
+            AppArguments args = AppArguments.From(commandLine.Split(' '));
             Assert.IsTrue(args.ShowHelp);
         }
 
@@ -23,7 +26,20 @@ namespace XmlToBullet.Tests
             Assert.AreEqual("+", args.AttibuteBullet);
         }
 
+        [TestCase("In.xml out.txt")]
+        [TestCase("In.xml out.txt -a=#")]
+        [TestCase("-a# In.xml out.txt")]
+        [TestCase("In.xml -a=# out.txt")]
+        public void Paths(string commandLine)
+        {
+            AppArguments args = AppArguments.From(commandLine.Split(' '));
+            Assert.AreEqual("In.xml", args.InPath);
+            Assert.AreEqual("out.txt", args.OutPath);
+        }
+
         [TestCase("In.xml out.txt -noAttributes")]
+        [TestCase("-noAttributes In.xml out.txt")]
+        [TestCase("In.xml -noAttributes out.txt")]
         public void Disable_attributes(string commandLine)
         {
             AppArguments args = AppArguments.From(commandLine.Split(' '));
@@ -32,6 +48,8 @@ namespace XmlToBullet.Tests
         }
 
         [TestCase("In.xml out.txt -a=#")]
+        [TestCase("-a=# In.xml out.txt")]
+        [TestCase("In.xml -a=# out.txt")]
         public void Specify_bullet(string commandLine)
         {
             AppArguments args = AppArguments.From(commandLine.Split(' '));

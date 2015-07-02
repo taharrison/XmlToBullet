@@ -11,19 +11,21 @@ namespace XmlToBullet
 
         public static AppArguments From(string[] args)
         {
-            var showHelp = args.Count() < 2 | args.Contains("-help");
+            var nonSwitches = args.Where(a => !a.StartsWith("-")).ToArray();
+            var switches = args.Where(a => a.StartsWith("-")).ToArray();
+
+            var showHelp = nonSwitches.Count() != 2 || args.Contains("-help");
 
             if (showHelp)
             {
                 return new AppArguments {ShowHelp = true};
             }
 
-            string filePath = args[0];
-            string fileOutPath = args[1];
-            var otherargs = args.Skip(2).ToArray();
+            string filePath = nonSwitches[0];
+            string fileOutPath = nonSwitches[1];
 
-            var noAttributesOption = otherargs.FirstOrDefault(a => a.StartsWith("-noAttributes"));
-            var attributeOption = otherargs.FirstOrDefault(a => a.StartsWith("-a="));
+            var noAttributesOption = switches.FirstOrDefault(a => a.StartsWith("-noAttributes"));
+            var attributeOption = switches.FirstOrDefault(a => a.StartsWith("-a="));
 
             var attibuteBullet = noAttributesOption != null
                 ? null
